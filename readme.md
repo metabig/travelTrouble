@@ -1,3 +1,4 @@
 # Travel trouble
 
-Fuck yeah
+API Access docs: https://anakincho.github.io/slate/
+APE endpoint: https://www.skyscanner
