@@ -12,7 +12,7 @@ const RootStack = createStackNavigator({
   GroupView: {screen: GroupScreen},
   ProposalAdd: {screen: ProposalAddScreen},
   GroupEdit: {screen: GroupEditScreen},
-  FlighyInfo: {screen: FlightInfoScreen},
+  FlightInfo: {screen: FlightInfoScreen},
 });
 
 const AppNavigator = createAppContainer(RootStack);
