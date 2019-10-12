@@ -10,7 +10,7 @@ export default class GroupScreen extends React.Component {
   render() {
     return (
       <View style={styles.basic}>
-        <Text>Welcome, {this.props.user}</Text>
+        <Text>Welcome, {this.props.navigation.getParam("user", "unknown")}</Text>
         <Button title="Go to next group" onPress={() => this.props.navigation.navigate('Login')}/>
       </View>
     );
