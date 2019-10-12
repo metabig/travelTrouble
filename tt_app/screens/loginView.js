@@ -8,17 +8,14 @@ export default class LoginScreen extends React.Component {
     this.state = {username: ''};
   }
 
-  sendData = () => {
-          this.props.callbackUserInfo(this.state.username, ["a", "b"]);
-          this.props.navigation.navigate('Group');
-  };
-
   render() {
     return (
       <View style={styles.basic}>
         <Text>Welcome to Travel Trouble app</Text>
         <Input placeHolder='Username' onChangeText={(username) => this.setState({username})}/>
-        <Button title="Log in" onPress={() => sendData}/>
+        <Button title="Log in" onPress={() => {
+          this.props.navigation.navigate('Group', {'user': this.state.username, "groups": ["a", "b"]});
+        }}/>
       </View>
     );
   }
