@@ -7,9 +7,4 @@ export default class App extends React.Component {
      	<AppNavigator/>
     );
   }
-
-  function callbackUserInfo(u, list) {
-  	this.setState({user: u});
-  	this.setState({group_list: list});
-  }
 }
