@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import {HomeScreen, DetailsScreen} from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ProposeScreen from '../screens/ProposeScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -70,6 +71,13 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const ProposeStack = createStackNavigator(
+  {
+    Propose: ProposeScreen
+  },
+  config
+);
+
 const DetailsStack = createStackNavigator(
   {
     Details: DetailsScreen,
@@ -84,6 +92,7 @@ const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+  ProposeStack,
 });
 
 tabNavigator.path = '';

@@ -22,6 +22,25 @@ exports.create = (req, res) => {
     });
 }
 
+exports.getGroups = (req, res) => {
+    if (!req.body.user) {
+        return res.status(400).send({
+            message: "User content can not be empty"
+        });
+    }
+
+    const query = User.findOne({ user: req.body.user });
+    query.exec(function (err, user) {
+        if (err) {
+            res.status(500).send({
+                message: "This group does not exist"
+            });
+        } else {
+            res.send(user.groups);
+        }
+    });
+}
+
 exports.getUsers = (req, res) => {
     User.find().then(users => {
         res.send(users);
