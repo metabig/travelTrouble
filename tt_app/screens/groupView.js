@@ -1,44 +1,56 @@
 import React, { Component } from 'react';
-import { FlatList, ActivityIndicator, StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { Input } from 'react-native-elements';
 
-export default class GroupScreen extends React.Component {
+export default class GrupScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isLoading: true, dataSource: null};
+    this.state = {
+      isLogged: false,
+      dataSource: null,
+      loading: true
+    };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch("http://192.168.43.104:3000/user/groups", {
       method: 'POST',
-      body: JSON.stringify({
-        user: this.props.navigation.getParam("user", "unknown"),
-      }),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ user: this.props.navigation.getParam("user", "unknown") })
     }).then((response) => response.json()).then((responseJson) => {
-      this.setState({isLoading: false, dataSource: responseJson});
+      this.setState({ loading:false, dataSource: responseJson });
     }).catch((error) => {
       console.error(error);
     });
   }
 
   render() {
-    if(this.state.isLoading){
-      return(
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator/>
+    if (!this.state.isLogged || this.state.loading)
+      return (
+        <View style={styles.basic}>
+          <Text>Welcome to Travel Trouble app, brodaaaaa</Text>
+          <Input placeholder='Username' onChangeText={(username) => this.setState({username})}/>
+          <Button title="Log in" onPress={() => {
+            this.setState({
+              isLogged: true
+            });
+            this.render;
+          }}/>
         </View>
-      )
-    }
-
+      );
     return (
       <View style={styles.basic}>
-        <Text>Welcome, {this.props.navigation.getParam("user", "unknown")}</Text>
+        <Text>Welcome!! {this.state.username}</Text>
         <Text>{JSON.stringify(this.state.dataSource, null, 2)}</Text>
-        
+
       </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   basic: {
