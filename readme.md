@@ -1,4 +1,5 @@
 # Travel trouble
 
 API Access docs: https://anakincho.github.io/slate/
-APE endpoint: https://www.skyscanner
+API endpoint: https://www.skyscanner.net/g/chiron
+API key: skyscanner-hackupc2019
