@@ -5,7 +5,7 @@ module.exports = (app) => {
 	app.post('/user/add', user.create);
 
 	// Retrieve all groups from user
-	app.get('/user/groups', user.getGroups);
+	app.post('/user/groups', user.getGroups);
 
 	//Retrieve all users
 	app.get('/user/all', user.getUsers);
