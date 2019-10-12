@@ -33,10 +33,14 @@ exports.getGroups = (req, res) => {
     query.exec(function (err, user) {
         if (err) {
             res.status(500).send({
-                message: "This group does not exist"
+                message: "This user does not exist"
             });
-        } else {
+        } else if (user != null) {
             res.send(user.groups);
+        } else {
+            res.status(500).send({
+                message: "This user does not exist"
+            });
         }
     });
 }
