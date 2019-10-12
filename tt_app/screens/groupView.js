@@ -5,7 +5,7 @@ import { Input } from 'react-native-elements';
 export default class GroupScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isLoading: true}
+    this.state = {isLoading: true, dataSource: null};
   }
 
   componentDidMount() {
@@ -33,8 +33,8 @@ export default class GroupScreen extends React.Component {
     return (
       <View style={styles.basic}>
         <Text>Welcome, {this.props.navigation.getParam("user", "unknown")}</Text>
-        <Text>These are your groups:</Text>
-        <Text>{this.state.dataSource}</Text>
+        <Text>{JSON.stringify(this.state.dataSource, null, 2)}</Text>
+        
       </View>
     );
   }
