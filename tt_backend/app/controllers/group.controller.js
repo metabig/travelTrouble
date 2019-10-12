@@ -166,9 +166,24 @@ exports.voteProposal = (req, res) => {
     			message: "This group does not exist"
     		});
     	} else {
-		    group.proposals[req.body.id].voters.push(req.body.user);
-		    group.proposals[req.body.id].score++;
 
+            /* Checks if the group has already been upvoted by the user */
+            var found = false;
+            for (var i = 0; i < group.proposals[req.body.id].voters.length && found == false; i++) {
+                if (group.proposals[req.body.id].voters[i] == req.body.user) {
+                    found = true;
+                }
+            }
+
+            /* Adds (or removes) a vote */
+            if (found == false) {
+                group.proposals[req.body.id].voters.push(req.body.user);
+                group.proposals[req.body.id].score++;
+            } else {
+                group.proposals[req.body.id].voters.splice(i,1);
+                group.proposals[req.body.id].score--;
+            }
+            
 		    group.save().then(data => {
 		    	res.send(data);
 		    }).catch(err => {
