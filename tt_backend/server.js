@@ -30,4 +30,4 @@ app.get('/', (req, res) => {
 	    res.json({"response": "Welcome to the TravelTrouble API"});
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, '192.168.43.104', () => console.log(`Example app listening on port ${port}!`));
