@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { Input } from 'react-native-elements';
 
-export default class GrupScreen extends React.Component {
+export default class GroupScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
