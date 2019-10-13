@@ -33,12 +33,14 @@ exports.newGroup = (req, res) => {
     	} else {
     		user.groups.push(req.body.group_name);
 
+            /* Save users */
     		user.save().then(data => { }).catch(err => {
 		    	return res.status(500).send({
 		    		message: "This user does not exist"
 		    	});
 		    });
 
+            /* Save group */
 		    group.save().then(data => {
 		    	res.send(data);
 		    }).catch(err => {
@@ -66,7 +68,9 @@ exports.addUser = (req, res) => {
     		});
     	} else {
 		    group.users.push(req.body.user); // No ha d'afegir usuaris que no existeixen
-
+            user.groups.push(req.body.group_name);
+           
+            /* Save group */
 		    group.save().then(data => {
 		    	res.send(data);
 		    }).catch(err => {
@@ -74,6 +78,13 @@ exports.addUser = (req, res) => {
 		    		message: err.message
 		    	});
 		    });
+
+            /* Save users */
+            user.save().then(data => { }).catch(err => {
+                return res.status(500).send({
+                    message: "This user does not exist"
+                });
+            });
     	}
     });
 };
@@ -107,9 +118,9 @@ exports.addProposal = (req, res) => {
     const query = Group.findOne({ group_name: req.body.group });
 
     query.exec(function (err, group) {
-    	if (err) {
+    	if (err || !req.body.group.users.includes(req.body.creator)) {
     		res.status(500).send({
-    			message: "This group does not exist"
+    			message: "This group either does not exist or you are not a member"
     		});
     	} else {
 		    group.proposals.push({
@@ -121,6 +132,7 @@ exports.addProposal = (req, res) => {
 		    	voters: []
 		    });
 
+            /* Save group */
 		    group.save().then(data => {
 		    	res.send(data);
 		    }).catch(err => {
