@@ -9,15 +9,21 @@ exports.create = (req, res) => {
     
     //if the user is already in the database, we do not create it
     const query = User.findOne({ user: req.body.user });
-
     query.exec(function (err, user) {
-        if (err) {  
-            const user = new User({
+        if (err) {
+            res.status(500).send({
+                message: "This user does not exist"
+            });
+        } else if (user != null) {
+            res.status(500).send({
+                message: "This user does exist"
+            });
+        } else {
+            const user = new User ({
                 user: req.body.user,
                 groups: []
             })
 
-            // Save the note in the database
             user.save().then(data => {
                 res.send(data);
             }).catch(err => {
@@ -25,7 +31,6 @@ exports.create = (req, res) => {
                     message: err.message
                 });
             });
-
         }
     });
 }

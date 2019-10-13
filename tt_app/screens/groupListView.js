@@ -35,8 +35,23 @@ export default class GroupListScreen extends React.Component {
     });
   }
 
+  createGroup() {
+    fetch("http://192.168.43.104:3000/group/new", {
+      method: 'POST',
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ user: this.state.user, group_name: this.state.newGroup })
+    }).then((response) => response.json()).then((responseJson) => {
+      this.setState({ loading: true, dataSource: responseJson });
+      this.fetchApi();
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
   render() {
-    
     if (!this.state.isLogged || this.state.loading)
       return (
         <View>
@@ -56,13 +71,13 @@ export default class GroupListScreen extends React.Component {
       <View>
         <Text>Welcome {this.state.user}!!</Text>
         <Input placeholder="New Group" onChangeText={(g) => this.setState({ newGroup: g })} />
-        <Button title="Submit" onPress={() => this.render()} />
+        <Button title="Create" onPress={() => this.createGroup()} />
         <Text>Your groups are:</Text>
         {this.state.dataSource.map(
           (data) => {
             return(
               <View key={data.id}>
-                <GroupButton text={data} navigation={this.props.navigation}/>
+                <GroupButton text={data} group={data} navigation={this.props.navigation}/>
               </View>
             )
           }

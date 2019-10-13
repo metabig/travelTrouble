@@ -16,6 +16,7 @@ export default class GroupScreen extends React.Component {
 
     return (
       <ScrollView>
+        <Text>{this.props.navigation.getParam('group', 'null')}</Text>
         <View>
           <Text>Boston</Text>
           <Text>143€</Text>
@@ -41,8 +42,10 @@ export default class GroupScreen extends React.Component {
         <Text>...............</Text>
         <Text>...............</Text>
 
-        <Button title="Edit Group" onPress={() => this.props.navigation.navigate('GroupEdit')}/>
-        <Button title="Propose" onPress={() => this.props.navigation.navigate('ProposalAdd')}/>
+        <Button title="Edit Group" onPress={() => this.props.navigation.navigate('GroupEdit', {
+          group: this.props.navigation.getParam('group', 'null'),
+        })}/>
+        <Button title="Propose" onPress={() => {this.props.navigation.navigate('ProposalAdd')}}/>
       </ScrollView>
     );
   }

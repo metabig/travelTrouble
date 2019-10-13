@@ -11,7 +11,7 @@ module.exports = (app) => {
 	app.post('/group/user', group.addUser);
 
 	// Get list of users in group
-	app.get('/group/user/all', group.getUsers);
+	app.post('/group/user/all', group.getUsers);
 
 	// Add new proposal
 	app.post('/group/proposal/add', group.addProposal);

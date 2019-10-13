@@ -11,7 +11,9 @@ export default class GroupButton extends React.Component {
         return (
 
             <Button title={this.props.text} onPress={() => 
-                this.props.navigation.navigate('GroupView')} />
+                this.props.navigation.navigate('GroupView', {
+                	group: this.props.group,
+                })} />
         );
     }
 }
