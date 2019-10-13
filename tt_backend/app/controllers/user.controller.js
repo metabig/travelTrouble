@@ -7,11 +7,14 @@ exports.create = (req, res) => {
         });
     }
 
-    const user = new User({
-    	user: req.body.user,
-        groups: []
-    })
-
+    /* If user already exists, it does not create another one */
+    const promise = User.exists({ user: req.body.user }); 
+    if (promise == false) {
+        const user = new User({
+        	user: req.body.user,
+            groups: []
+        })
+    }
     // Save the note in the database
     user.save().then(data => {
     	res.send(data);
@@ -20,6 +23,7 @@ exports.create = (req, res) => {
     		message: err.message
     	});
     });
+
 }
 
 exports.getGroups = (req, res) => {
@@ -33,14 +37,10 @@ exports.getGroups = (req, res) => {
     query.exec(function (err, user) {
         if (err) {
             res.status(500).send({
-                message: "This user does not exist"
+                message: "This group does not exist"
             });
-        } else if (user != null) {
-            res.send(user.groups);
         } else {
-            res.status(500).send({
-                message: "This user does not exist"
-            });
+            res.send(user.groups);
         }
     });
 }
