@@ -7,22 +7,23 @@ exports.create = (req, res) => {
         });
     }
 
-    /* If user already exists, it does not create another one */
+    /* If user already exists, it does not create another one u*/
     const promise = User.exists({ user: req.body.user }); 
     if (promise == false) {
         const user = new User({
         	user: req.body.user,
             groups: []
         })
+    
+        // Save the note in the database
+        user.save().then(data => {
+        	res.send(data);
+        }).catch(err => {
+        	res.status(500).send({
+        		message: err.message
+        	});
+        });
     }
-    // Save the note in the database
-    user.save().then(data => {
-    	res.send(data);
-    }).catch(err => {
-    	res.status(500).send({
-    		message: err.message
-    	});
-    });
 
 }
 
