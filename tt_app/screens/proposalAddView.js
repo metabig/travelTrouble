@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { Input } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-material-dropdown';
+import styles from '../assets/styles'
 
 export default class ProposalAddScreen extends React.Component {
   constructor(props) {

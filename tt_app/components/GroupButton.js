@@ -13,6 +13,7 @@ export default class GroupButton extends React.Component {
             <Button title={this.props.text} onPress={() => 
                 this.props.navigation.navigate('GroupView', {
                 	group: this.props.group,
+                    title: this.props.text
                 })} />
         );
     }

@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, ScrollView } from 'react-native';
+import styles from '../assets/styles'
 
 export default class GroupScreen extends React.Component {
 
+  static navigationOptions = {
+    return {
+      title: navigation.getParam('title', 'null')
+    };
+  };
 
   constructor(props) {
     super(props);

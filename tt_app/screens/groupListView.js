@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, ScrollView } from 'react-native';
 import { Input, Divider } from 'react-native-elements';
+import styles from '../assets/styles'
 import GroupButton from '../components/GroupButton';
 
 export default class GroupListScreen extends React.Component {
   static navigationOptions = {
-    title: 'Group List',
+    title: 'Home',
   };
 
   constructor(props) {
@@ -27,7 +28,6 @@ export default class GroupListScreen extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ user: this.state.user })
-
     }).then((response) => response.json()).then((responseJson) => {
       this.setState({ loading: false, dataSource: responseJson });
     }).catch((error) => {
@@ -54,8 +54,8 @@ export default class GroupListScreen extends React.Component {
   render() {
     if (!this.state.isLogged || this.state.loading)
       return (
-        <View>
-          <Text>Welcome to Travel Troublee!</Text>
+        <View style={styles.basic}>
+          <Text style={styles.bigText}>Welcome to Travel Troublee!</Text>
           <Input placeholder='Username' onChangeText={(u) => this.setState({ user: u })} />
           
           <Button title="Log in" onPress={() => {
@@ -69,15 +69,15 @@ export default class GroupListScreen extends React.Component {
       );
     return (
       <View>
-        <Text>Welcome {this.state.user}!!</Text>
+        <Text style={styles.bigText}>Welcome {this.state.user}!!</Text>
         <Input placeholder="New Group" onChangeText={(g) => this.setState({ newGroup: g })} />
         <Button title="Create" onPress={() => this.createGroup()} />
-        <Text>Your groups are:</Text>
+        <Text style={styles.normalText}>Your groups are:</Text>
         {this.state.dataSource.map(
           (data) => {
             return(
               <View key={data.id}>
-                <GroupButton text={data} group={data} navigation={this.props.navigation}/>
+                <GroupButton key={data.id} text={data} group={data} navigation={this.props.navigation}/>
               </View>
             )
           }

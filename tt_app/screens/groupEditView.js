@@ -20,8 +20,9 @@ export default class GroupEditScreen extends React.Component {
         'Accept': '*/*',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ group: this.state.group })
+      body: JSON.stringify({ group: this.props.navigation.getParam('group', 'null') })
     }).then((response) => response.json()).then((responseJson) => {
+      console.log(JSON.stringify({ group: this.props.navigation.getParam('group', 'null') }));
       this.setState({ loading: false, dataSource: responseJson });
     }).catch((error) => {
       console.error(error);
@@ -29,6 +30,7 @@ export default class GroupEditScreen extends React.Component {
   }
 
   addMember() {
+    console.log("Add member");
     fetch("http://192.168.43.104:3000/user/add", {
       method: 'POST',
       headers: {
@@ -38,7 +40,7 @@ export default class GroupEditScreen extends React.Component {
       body: JSON.stringify({ user: this.state.newMember, group_name: this.state.group_name })
     }).then((response) => response.json()).then((responseJson) => {
       this.setState({ dataSource: responseJson });
-      this.render();
+      this.setState({ loading: false });
     }).catch((error) => {
       console.error(error);
     });
@@ -49,8 +51,7 @@ export default class GroupEditScreen extends React.Component {
   }
 
   contentDidMount() {
-    this.setState({group: this.props.navigation.getParam('group', 'null')});
-    this.setState({loading: false});
+    this.setState({group: "Parisss"});
     this.getMembers();
   }
 
@@ -61,10 +62,11 @@ export default class GroupEditScreen extends React.Component {
       </View>
     }
 
-    return (
-      <ScrollView>
-        <Text>Group members: { JSON.stringify(this.state.dataSource)}</Text>
-      </ScrollView>
-    );
+      return (
+        <ScrollView>
+          <Text>Group members: {  JSON.stringify( this.state.dataSource )}</Text>
+        </ScrollView>
+      );
+    
   }
 }
