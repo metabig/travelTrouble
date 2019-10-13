@@ -68,7 +68,7 @@ exports.addUser = (req, res) => {
     		});
     	} else {
 		    group.users.push(req.body.user); // No ha d'afegir usuaris que no existeixen
-            user.groups.push(req.body.group_name);
+            req.body.user.groups.push(req.body.group_name);
            
             /* Save group */
 		    group.save().then(data => {
@@ -80,7 +80,7 @@ exports.addUser = (req, res) => {
 		    });
 
             /* Save users */
-            user.save().then(data => { }).catch(err => {
+            req.body.user.save().then(data => { }).catch(err => {
                 return res.status(500).send({
                     message: "This user does not exist"
                 });
