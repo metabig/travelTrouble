@@ -4,7 +4,7 @@ import styles from '../assets/styles'
 
 export default class GroupScreen extends React.Component {
 
-  static navigationOptions = {
+  static navigationOptions = ({navigation}) => { 
     return {
       title: navigation.getParam('title', 'null')
     };

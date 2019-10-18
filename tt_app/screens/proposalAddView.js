@@ -126,11 +126,3 @@ export default class ProposalAddScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  basic: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  }
-});
